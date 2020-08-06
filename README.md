@@ -3,8 +3,6 @@
 Paper link: [https://arxiv.org/abs/1904.12058](https://arxiv.org/abs/1904.12058)
 Author's code: [https://github.com/muhanzhang/IGMC](https://github.com/muhanzhang/IGMC)
 
-Credit: Tianjun Xiao ([@sneakerkg](https://github.com/sneakerkg))
-
 ## Dependencies
 
 * PyTorch 1.2+

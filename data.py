@@ -10,6 +10,7 @@ import torch as th
 import dgl 
 from dgl.data.utils import download, extract_archive, get_download_dir
 from refex import extract_refex_feature
+import utils
 
 _urls = {
     'ml-100k' : 'http://files.grouplens.org/datasets/movielens/ml-100k.zip',
@@ -26,7 +27,7 @@ GENRES_ML_1M = GENRES_ML_100K[1:]
 class MovieLens(object):
     """MovieLens dataset used by GCMC model
     """
-    def __init__(self, data_name, testing=False,
+    def __init__(self, data_name, testing=False, 
                  test_ratio=0.1, valid_ratio=0.2):
         # self._data_name = data_name
 
@@ -144,11 +145,17 @@ class MovieLens(object):
         self.train_graph = dgl.graph((th.cat([self.train_rating_pairs[0], self.train_rating_pairs[1]]), 
                                       th.cat([self.train_rating_pairs[1], self.train_rating_pairs[0]])))
         self.train_graph.edata['etype'] = th.cat([self.train_rating_values, self.train_rating_values]).to(th.long)
-        
-        # add refex feature
+                    
+        # # add refex feature
         # refex_features = extract_refex_feature(self.train_graph)
         # print("refex features shape: {}".format(refex_features.numpy().shape))
         # self.train_graph.ndata['refex'] = refex_features
+
+        # # add gdv feature
+        # gdv_feature = np.loadtxt('./{}.gdv'.format(data_name))  
+        # print("gdv features shape: {}".format(gdv_features.shape))
+        # gdv_feature = utils.MinMaxScaling(gdv_feature, axis=0)
+        # self.train_graph.ndata['gdv'] = th.from_numpy(gdv_feature)
 
     @property
     def num_rating(self):

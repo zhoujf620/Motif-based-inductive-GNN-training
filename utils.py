@@ -42,6 +42,11 @@ def torch_net_info(net, save_path=None):
             f.write(info_str)
     return info_str
 
+def MinMaxScaling(x, axis=0):
+    dist = x.max(axis=axis) - x.min(axis=axis)
+    x = (x - x.min(axis=axis)) / (dist + 1e-7)
+    return x
+
 def one_hot(idx, length):
     x = th.zeros([len(idx), length])
     x[th.arange(len(idx)), idx] = 1.0
