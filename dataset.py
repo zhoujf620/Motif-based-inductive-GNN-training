@@ -40,7 +40,7 @@ def collate_movielens(data):
 if __name__ == "__main__":
     import time
     from data import MovieLens
-    movielens = MovieLens("ml-100k", testing=True)
+    movielens = MovieLens("ml-100k", testing=False)
 
     train_dataset = MovieLensDataset(
         movielens.train_rating_pairs, movielens.train_rating_values, movielens.train_graph, 

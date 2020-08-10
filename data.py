@@ -147,13 +147,13 @@ class MovieLens(object):
         self.train_graph.edata['etype'] = th.cat([self.train_rating_values, self.train_rating_values]).to(th.long)
                     
         # # add refex feature
-        # refex_features = extract_refex_feature(self.train_graph)
-        # print("refex features shape: {}".format(refex_features.numpy().shape))
-        # self.train_graph.ndata['refex'] = refex_features
+        # refex_feature = extract_refex_feature(self.train_graph)
+        # print("refex feature shape: {}".format(refex_feature.numpy().shape))
+        # self.train_graph.ndata['refex'] = refex_feature
 
         # # add gdv feature
-        # gdv_feature = np.loadtxt('./{}.gdv'.format(data_name))  
-        # print("gdv features shape: {}".format(gdv_features.shape))
+        # gdv_feature = np.loadtxt('./{}.gdv'.format(data_name), dtype=np.float32)
+        # print("gdv feature shape: {}".format(gdv_feature.shape))
         # gdv_feature = utils.MinMaxScaling(gdv_feature, axis=0)
         # self.train_graph.ndata['gdv'] = th.from_numpy(gdv_feature)
 
@@ -784,7 +784,7 @@ def load_official_trainvaltest_split(dataset, testing=False, rating_map=None, po
 
     # Internally shuffle training set (before splitting off validation set)
     rand_idx = list(range(len(idx_nonzero_train)))
-    np.random.seed(42)
+    np.random.seed(1234)
     np.random.shuffle(rand_idx)
     idx_nonzero_train = idx_nonzero_train[rand_idx]
     pairs_nonzero_train = pairs_nonzero_train[rand_idx]
